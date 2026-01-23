@@ -1,0 +1,113 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
+    
+    /* 定义颜色变量 */
+    :root {
+      --bg-color: #0d1117;
+      --primary: #00f2ea; /* 亮青色 */
+      --secondary: #008080; /* 这里的蓝绿 */
+      --text-color: #ffffff;
+    }
+
+    /* 背景 */
+    .bg { fill: var(--bg-color); }
+    
+    /* 像素手样式 */
+    .hand { 
+      fill: var(--primary); 
+      filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+    }
+
+    /* 按钮/中心点 */
+    .trigger-point {
+      fill: none;
+      stroke: var(--secondary);
+      stroke-width: 2;
+      stroke-dasharray: 10 5;
+      opacity: 0.5;
+    }
+
+    /* 动画定义 */
+    @keyframes mouseMove {
+      0% { transform: translate(600px, 300px); }
+      30% { transform: translate(380px, 190px); } /* 移动到中心 */
+      40% { transform: translate(380px, 190px) scale(0.9); } /* 点击按下 */
+      45% { transform: translate(380px, 190px) scale(1); opacity: 1;} 
+      100% { transform: translate(380px, 190px); opacity: 0; } /* 手消失 */
+    }
+
+    @keyframes flashEffect {
+      0%, 40% { opacity: 0; }
+      41% { opacity: 1; fill: #e0ffff; } /* 闪光 */
+      45% { opacity: 0; }
+    }
+
+    @keyframes textReveal {
+      0%, 45% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.1); }
+      60% { transform: scale(1); text-shadow: 0 0 10px var(--primary); }
+      100% { opacity: 1; text-shadow: 0 0 20px var(--primary); }
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes circlePulse {
+      0% { r: 0; opacity: 1; stroke-width: 5; }
+      100% { r: 200; opacity: 0; stroke-width: 0; }
+    }
+
+    /* 应用动画 */
+    #cursor {
+      animation: mouseMove 4s forwards;
+    }
+
+    #flash-overlay {
+      animation: flashEffect 4s forwards;
+      pointer-events: none;
+    }
+
+    #main-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 40px;
+      fill: var(--primary);
+      text-anchor: middle;
+      opacity: 0; /* 初始不可见 */
+      animation: textReveal 0.5s 1.7s forwards; /* 延迟出现 */
+    }
+
+    #pulse-ring {
+      opacity: 0;
+      animation: circlePulse 1s 1.6s ease-out forwards;
+    }
+
+  </style>
+
+  <!-- 背景 -->
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- 闪光层 -->
+  <rect id="flash-overlay" width="100%" height="100%" fill="white" opacity="0" />
+
+  <!-- 点击后的扩散波纹 -->
+  <circle id="pulse-ring" cx="400" cy="200" r="10" stroke="#00f2ea" fill="none" />
+
+  <!-- 像素手 (SVG path绘制) -->
+  <g id="cursor">
+    <path class="hand" d="M0,0 L0,24 L6,22 L10,32 L14,30 L10,20 L18,20 L0,0 Z" transform="scale(1.5)" />
+  </g>
+
+  <!-- 最终文字 -->
+  <text id="main-text" x="400" y="215">HELLO WORLD</text>
+  
+  <!-- 装饰性边框 -->
+  <rect x="10" y="10" width="780" height="380" stroke="#008080" stroke-width="2" fill="none" rx="10" opacity="0.3"/>
+
+</svg>
