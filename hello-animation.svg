@@ -1,113 +1,153 @@
-<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
-    
-    /* 定义颜色变量 */
-    :root {
-      --bg-color: #0d1117;
-      --primary: #00f2ea; /* 亮青色 */
-      --secondary: #008080; /* 这里的蓝绿 */
-      --text-color: #ffffff;
-    }
+<svg fill="none" viewBox="0 0 800 250" width="800" height="250" xmlns="http://www.w3.org/2000/svg">
+    <foreignObject width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <style>
+            /* <![CDATA[ */
+                /* ================= 基础容器 ================= */
+                .container {
+                    background-color: #1e1e1e;
+                    font-family: Consolas, Monaco, 'Courier New', monospace;
+                    font-size: 18px;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    color: #d4d4d4;
+                    line-height: 1.5;
+                    box-sizing: border-box;
+                }
+                .header {
+                    background-color: #252526;
+                    height: 38px;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 12px;
+                    border-bottom: 1px solid #111;
+                }
+                .dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+                .red { background-color: #ff5f56; }
+                .yellow { background-color: #ffbd2e; }
+                .green { background-color: #27c93f; }
+                .tab {
+                    background-color: #1e1e1e;
+                    color: #e8e8e8;
+                    padding: 8px 25px;
+                    font-size: 13px;
+                    margin-left: 15px;
+                    border-top: 1px solid #007acc;
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                }
+                .editor { padding: 20px; display: flex; }
+                .line-numbers {
+                    text-align: right;
+                    color: #858585;
+                    width: 30px;
+                    margin-right: 15px;
+                    user-select: none;
+                }
+                .code-lines { flex-grow: 1; }
 
-    /* 背景 */
-    .bg { fill: var(--bg-color); }
-    
-    /* 像素手样式 */
-    .hand { 
-      fill: var(--primary); 
-      filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
-    }
+                /* ================= 动画逻辑 (最稳健版本) ================= */
+                /* 外层包装：限制最终宽度，不参与动画 */
+                .line-wrap {
+                    height: 27px; /* 固定行高防止抖动 */
+                    display: block;
+                    margin-bottom: 2px;
+                }
+                
+                /* 内层文本：初始宽度为0，负责展开 */
+                .line-text {
+                    display: inline-block;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 0; /* 初始隐藏 */
+                    border-right: 2px solid transparent;
+                }
 
-    /* 按钮/中心点 */
-    .trigger-point {
-      fill: none;
-      stroke: var(--secondary);
-      stroke-width: 2;
-      stroke-dasharray: 10 5;
-      opacity: 0.5;
-    }
+                /* 通用动画：走到父容器的 100% */
+                @keyframes typing {
+                    to { width: 100%; }
+                }
+                /* 光标闪烁：仅在打字时显示 */
+                @keyframes typing-cursor {
+                    0%, 100% { border-color: transparent; }
+                    50% { border-color: #d4d4d4; }
+                }
+                /* 最终光标：永久闪烁 */
+                @keyframes blink-cursor {
+                    0%, 100% { border-color: transparent; }
+                    50% { border-color: #d4d4d4; }
+                }
 
-    /* 动画定义 */
-    @keyframes mouseMove {
-      0% { transform: translate(600px, 300px); }
-      30% { transform: translate(380px, 190px); } /* 移动到中心 */
-      40% { transform: translate(380px, 190px) scale(0.9); } /* 点击按下 */
-      45% { transform: translate(380px, 190px) scale(1); opacity: 1;} 
-      100% { transform: translate(380px, 190px); opacity: 0; } /* 手消失 */
-    }
+                /* 时间轴设置 */
+                /* 注意：ID 加在内层 line-text 上 */
+                #T1 { animation: typing 1.5s steps(20, end) 0.5s forwards, typing-cursor 1.5s step-end 0.5s forwards; }
+                #T2 { animation: typing 1.5s steps(20, end) 2.0s forwards, typing-cursor 1.5s step-end 2.0s forwards; }
+                #T3 { animation: typing 1.0s steps(12, end) 3.5s forwards, typing-cursor 1.0s step-end 3.5s forwards; }
+                #T4 { animation: typing 2.5s steps(30, end) 4.5s forwards, typing-cursor 2.5s step-end 4.5s forwards; }
+                #T5 { animation: typing 1.5s steps(15, end) 7.0s forwards, typing-cursor 1.5s step-end 7.0s forwards; }
+                #T6 { animation: typing 0.2s steps(2, end) 8.5s forwards, blink-cursor 1s step-end 8.7s infinite; }
 
-    @keyframes flashEffect {
-      0%, 40% { opacity: 0; }
-      41% { opacity: 1; fill: #e0ffff; } /* 闪光 */
-      45% { opacity: 0; }
-    }
+                /* 语法高亮 */
+                .kwd { color: #569cd6; }
+                .str { color: #ce9178; }
+                .mac { color: #c586c0; }
+                .ty { color: #4ec9b0; }
+                .fn { color: #dcdcaa; }
+                .obj { color: #9cdcfe; }
+                .punc { color: #d4d4d4; }
+            /* ]]> */
+            </style>
 
-    @keyframes textReveal {
-      0%, 45% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.1); }
-      60% { transform: scale(1); text-shadow: 0 0 10px var(--primary); }
-      100% { opacity: 1; text-shadow: 0 0 20px var(--primary); }
-    }
+            <div class="container">
+                <div class="header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <div class="tab">
+                        <span style="color: #00599C; font-weight: 900; margin-right: 6px; font-size: 14px;">C++</span> main.cpp
+                    </div>
+                </div>
 
-    @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(-2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(2px, -2px); }
-      100% { transform: translate(0); }
-    }
-
-    @keyframes circlePulse {
-      0% { r: 0; opacity: 1; stroke-width: 5; }
-      100% { r: 200; opacity: 0; stroke-width: 0; }
-    }
-
-    /* 应用动画 */
-    #cursor {
-      animation: mouseMove 4s forwards;
-    }
-
-    #flash-overlay {
-      animation: flashEffect 4s forwards;
-      pointer-events: none;
-    }
-
-    #main-text {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 40px;
-      fill: var(--primary);
-      text-anchor: middle;
-      opacity: 0; /* 初始不可见 */
-      animation: textReveal 0.5s 1.7s forwards; /* 延迟出现 */
-    }
-
-    #pulse-ring {
-      opacity: 0;
-      animation: circlePulse 1s 1.6s ease-out forwards;
-    }
-
-  </style>
-
-  <!-- 背景 -->
-  <rect width="100%" height="100%" class="bg" />
-
-  <!-- 闪光层 -->
-  <rect id="flash-overlay" width="100%" height="100%" fill="white" opacity="0" />
-
-  <!-- 点击后的扩散波纹 -->
-  <circle id="pulse-ring" cx="400" cy="200" r="10" stroke="#00f2ea" fill="none" />
-
-  <!-- 像素手 (SVG path绘制) -->
-  <g id="cursor">
-    <path class="hand" d="M0,0 L0,24 L6,22 L10,32 L14,30 L10,20 L18,20 L0,0 Z" transform="scale(1.5)" />
-  </g>
-
-  <!-- 最终文字 -->
-  <text id="main-text" x="400" y="215">HELLO WORLD</text>
-  
-  <!-- 装饰性边框 -->
-  <rect x="10" y="10" width="780" height="380" stroke="#008080" stroke-width="2" fill="none" rx="10" opacity="0.3"/>
-
+                <div class="editor">
+                    <div class="line-numbers">
+                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+                    </div>
+                    <div class="code-lines">
+                        <!-- 
+                           修改原理：
+                           1. 外层 .line-wrap 使用 style="width: XXch" 设定这行代码最终有多长。
+                           2. 内层 .line-text 初始宽度是 0，动画播放时会慢慢填满外层定义的宽度。
+                           这样既保证了不直接显示，又不需要复杂的 CSS 变量。
+                        -->
+                        <div class="line-wrap" style="width: 20ch;">
+                            <span class="line-text" id="T1"><span class="mac">#include</span><span class="str">&lt;iostream&gt;</span></span>
+                        </div>
+                        
+                        <div class="line-wrap" style="width: 21ch;">
+                            <span class="line-text" id="T2"><span class="kwd">using</span> <span class="kwd">namespace</span> <span class="ty">std</span><span class="punc">;</span></span>
+                        </div>
+                        
+                        <div class="line-wrap" style="width: 13ch;">
+                            <span class="line-text" id="T3"><span class="kwd">int</span> <span class="fn">main</span><span class="punc">(){</span></span>
+                        </div>
+                        
+                        <div class="line-wrap" style="width: 28ch;">
+                            <span class="line-text" id="T4">&#160;&#160;&#160;&#160;<span class="obj">cout</span><span class="punc">&lt;&lt;</span><span class="str">"Hello World!"</span><span class="punc">;</span></span>
+                        </div>
+                        
+                        <div class="line-wrap" style="width: 16ch;">
+                            <span class="line-text" id="T5">&#160;&#160;&#160;&#160;<span class="kwd">return</span> <span class="obj">0</span><span class="punc">;</span></span>
+                        </div>
+                        
+                        <div class="line-wrap" style="width: 2ch;">
+                            <span class="line-text" id="T6"><span class="punc">}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </foreignObject>
 </svg>
