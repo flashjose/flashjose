@@ -1,0 +1,83 @@
+<svg fill="none" viewBox="0 0 800 220" width="800" height="220" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+      /* <![CDATA[ */
+        .wrap {
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          background: linear-gradient(180deg, #0A0000 0%, #140005 50%, #0A0000 100%);
+          border: 1px solid rgba(226, 1, 45, 0.35);
+          border-radius: 4px;
+          padding: 28px 20px;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+          font-family: Georgia, "Times New Roman", serif;
+        }
+        .wrap::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse at 50% 0%, rgba(226, 1, 45, 0.12), transparent 60%);
+          pointer-events: none;
+        }
+        .title {
+          position: relative;
+          z-index: 1;
+          font-size: 32px;
+          font-weight: 900;
+          letter-spacing: 8px;
+          color: #FFE8EC;
+          text-shadow: 0 0 18px rgba(226, 1, 45, 0.45);
+          margin: 0 0 6px;
+        }
+        .sub {
+          position: relative;
+          z-index: 1;
+          font-family: "Courier New", Consolas, monospace;
+          font-size: 12px;
+          letter-spacing: 4px;
+          color: #E2012D;
+          opacity: 0.85;
+          margin-bottom: 16px;
+        }
+        .quote {
+          position: relative;
+          z-index: 1;
+          color: #B8A0A0;
+          font-size: 14px;
+          font-style: italic;
+          letter-spacing: 1px;
+          line-height: 1.8;
+          margin-bottom: 16px;
+        }
+        .tags { position: relative; z-index: 1; }
+        .tag {
+          display: inline-block;
+          margin: 4px 6px;
+          padding: 6px 14px;
+          border: 1px solid rgba(226, 1, 45, 0.45);
+          border-radius: 3px;
+          background: rgba(226, 1, 45, 0.08);
+          color: #FF8090;
+          font-family: "Courier New", Consolas, monospace;
+          font-size: 12px;
+          letter-spacing: 2px;
+        }
+      /* ]]> */
+      </style>
+      <div class="wrap">
+        <div class="title">FAKER</div>
+        <div class="sub">THE UNKILLABLE DEMON KING · T1</div>
+        <div class="quote">&quot;I don&apos;t play to be the best.<br/>I play because I love the game.&quot;</div>
+        <div class="tags">
+          <span class="tag">×5 World Champion</span>
+          <span class="tag">T1 Mid Laner</span>
+          <span class="tag">GOAT</span>
+        </div>
+      </div>
+    </div>
+  </foreignObject>
+</svg>
