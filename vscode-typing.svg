@@ -3,86 +3,79 @@
         <div xmlns="http://www.w3.org/1999/xhtml">
             <style>
             /* <![CDATA[ */
-                /* ================= 基础容器 ================= */
                 .container {
-                    background-color: #1e1e1e;
+                    background-color: #0D1117;
                     font-family: Consolas, Monaco, 'Courier New', monospace;
                     font-size: 18px;
                     height: 100%;
                     width: 100%;
-                    border-radius: 8px;
+                    border-radius: 6px;
                     overflow: hidden;
-                    color: #d4d4d4;
+                    color: #C8AA6E;
                     line-height: 1.5;
                     box-sizing: border-box;
+                    border: 1px solid #1E2328;
+                    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
                 }
                 .header {
-                    background-color: #252526;
+                    background: linear-gradient(180deg, #091428 0%, #0D1117 100%);
                     height: 38px;
                     display: flex;
                     align-items: center;
                     padding-left: 12px;
-                    border-bottom: 1px solid #111;
+                    border-bottom: 1px solid rgba(200, 155, 60, 0.2);
                 }
-                .dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+                .dot { width: 11px; height: 11px; border-radius: 50%; margin-right: 7px; opacity: 0.9; }
                 .red { background-color: #ff5f56; }
                 .yellow { background-color: #ffbd2e; }
                 .green { background-color: #27c93f; }
                 .tab {
-                    background-color: #1e1e1e;
-                    color: #e8e8e8;
-                    padding: 8px 25px;
+                    background-color: #010A13;
+                    color: #C8AA6E;
+                    padding: 8px 22px;
                     font-size: 13px;
-                    margin-left: 15px;
-                    border-top: 1px solid #007acc;
+                    margin-left: 12px;
+                    border-top: 2px solid #C89B3C;
                     display: flex;
                     align-items: center;
                     height: 100%;
                 }
-                .editor { padding: 20px; display: flex; }
+                .editor { padding: 18px 20px; display: flex; background: #010A13; }
                 .line-numbers {
                     text-align: right;
-                    color: #858585;
-                    width: 30px;
-                    margin-right: 15px;
+                    color: #6E7681;
+                    width: 28px;
+                    margin-right: 14px;
                     user-select: none;
                 }
                 .code-lines { flex-grow: 1; }
 
-                /* ================= 动画逻辑 (最稳健版本) ================= */
-                /* 外层包装：限制最终宽度，不参与动画 */
                 .line-wrap {
-                    height: 27px; /* 固定行高防止抖动 */
+                    height: 27px;
                     display: block;
                     margin-bottom: 2px;
                 }
-                
-                /* 内层文本：初始宽度为0，负责展开 */
+
                 .line-text {
                     display: inline-block;
                     white-space: nowrap;
                     overflow: hidden;
-                    width: 0; /* 初始隐藏 */
+                    width: 0;
                     border-right: 2px solid transparent;
                 }
 
-                /* 通用动画：走到父容器的 100% */
                 @keyframes typing {
                     to { width: 100%; }
                 }
-                /* 光标闪烁：仅在打字时显示 */
                 @keyframes typing-cursor {
                     0%, 100% { border-color: transparent; }
-                    50% { border-color: #d4d4d4; }
+                    50% { border-color: #C89B3C; }
                 }
-                /* 最终光标：永久闪烁 */
                 @keyframes blink-cursor {
                     0%, 100% { border-color: transparent; }
-                    50% { border-color: #d4d4d4; }
+                    50% { border-color: #C89B3C; }
                 }
 
-                /* 时间轴设置 */
-                /* 注意：ID 加在内层 line-text 上 */
                 #T1 { animation: typing 1.5s steps(20, end) 0.5s forwards, typing-cursor 1.5s step-end 0.5s forwards; }
                 #T2 { animation: typing 1.5s steps(20, end) 2.0s forwards, typing-cursor 1.5s step-end 2.0s forwards; }
                 #T3 { animation: typing 1.0s steps(12, end) 3.5s forwards, typing-cursor 1.0s step-end 3.5s forwards; }
@@ -90,14 +83,13 @@
                 #T5 { animation: typing 1.5s steps(15, end) 7.0s forwards, typing-cursor 1.5s step-end 7.0s forwards; }
                 #T6 { animation: typing 0.2s steps(2, end) 8.5s forwards, blink-cursor 1s step-end 8.7s infinite; }
 
-                /* 语法高亮 */
-                .kwd { color: #569cd6; }
-                .str { color: #ce9178; }
-                .mac { color: #c586c0; }
-                .ty { color: #4ec9b0; }
-                .fn { color: #dcdcaa; }
-                .obj { color: #9cdcfe; }
-                .punc { color: #d4d4d4; }
+                .kwd { color: #569CD6; }
+                .str { color: #CE9178; }
+                .mac { color: #C586C0; }
+                .ty  { color: #4EC9B0; }
+                .fn  { color: #DCDCAA; }
+                .obj { color: #9CDCFE; }
+                .punc { color: #C8AA6E; }
             /* ]]> */
             </style>
 
@@ -107,7 +99,7 @@
                     <div class="dot yellow"></div>
                     <div class="dot green"></div>
                     <div class="tab">
-                        <span style="color: #00599C; font-weight: 900; margin-right: 6px; font-size: 14px;">C++</span> main.cpp
+                        <span style="color: #C89B3C; font-weight: 700; margin-right: 6px; font-size: 13px;">C++</span> main.cpp
                     </div>
                 </div>
 
@@ -116,32 +108,21 @@
                         <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
                     </div>
                     <div class="code-lines">
-                        <!-- 
-                           修改原理：
-                           1. 外层 .line-wrap 使用 style="width: XXch" 设定这行代码最终有多长。
-                           2. 内层 .line-text 初始宽度是 0，动画播放时会慢慢填满外层定义的宽度。
-                           这样既保证了不直接显示，又不需要复杂的 CSS 变量。
-                        -->
                         <div class="line-wrap" style="width: 20ch;">
                             <span class="line-text" id="T1"><span class="mac">#include</span><span class="str">&lt;iostream&gt;</span></span>
                         </div>
-                        
                         <div class="line-wrap" style="width: 21ch;">
                             <span class="line-text" id="T2"><span class="kwd">using</span> <span class="kwd">namespace</span> <span class="ty">std</span><span class="punc">;</span></span>
                         </div>
-                        
                         <div class="line-wrap" style="width: 13ch;">
                             <span class="line-text" id="T3"><span class="kwd">int</span> <span class="fn">main</span><span class="punc">(){</span></span>
                         </div>
-                        
                         <div class="line-wrap" style="width: 28ch;">
                             <span class="line-text" id="T4">&#160;&#160;&#160;&#160;<span class="obj">cout</span><span class="punc">&lt;&lt;</span><span class="str">"Hello World!"</span><span class="punc">;</span></span>
                         </div>
-                        
                         <div class="line-wrap" style="width: 16ch;">
                             <span class="line-text" id="T5">&#160;&#160;&#160;&#160;<span class="kwd">return</span> <span class="obj">0</span><span class="punc">;</span></span>
                         </div>
-                        
                         <div class="line-wrap" style="width: 2ch;">
                             <span class="line-text" id="T6"><span class="punc">}</span></span>
                         </div>
